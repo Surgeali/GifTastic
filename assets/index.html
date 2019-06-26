@@ -11,15 +11,9 @@
 <body>
     <!-- html to display -->
     <div id="buttons">
-        <button data-animal="cat">
-            Meow!
-        </button>
-        <button data-animal="dog">
-            Woof!
-        </button>
-        <button data-animal="skunk">
-            Stinky!
-        </button>
+
+    </div>
+    <div id="addCriteria">
 
     </div>
     <div id="gifs-appear-here">
@@ -30,7 +24,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
-        $("button").on("click", function () {
+
+        var topics = ['Cat', 'Dog', 'Skunk'];
+
+        $(document).on("click", 'button', function () {
 
             var animal = $(this).attr("data-animal");
             var queryURL = 'https://api.giphy.com/v1/gifs/search?q=' + animal + '&api_key=mAhE7iqIcCAwTNupTLQFftXPFTL7tFjm&limit=10';
@@ -42,7 +39,7 @@
                 .then(function (response) {
                     var results = response.data;
                     console.log(response)
-
+                    $("#gifs-appear-here").empty();
                     for (var i = 0; i < results.length; i++) {
                         var gifDiv = $("<div>");
 
@@ -62,8 +59,26 @@
                     }
                 })
         })
-    </script>
 
-</body>
+        function makeButtons() {
 
-</html>
+            $('#buttons').empty();
+            for (var i = 0; i < topics.length; i++) {
+                var b = $('<button>').text(topics[i]);
+
+                b.attr("data-animal", topics[i]);
+                $('#buttons').append(b);
+            }
+        }
+        makeButtons();
+
+        // var input = document.createElement("input");
+        // input.setAttribute('type', 'text');
+        // var parent = document.getElementById("addCriteria");
+        // parent.appendChild(input);
+
+        // create an input and a button that says Add Criteria
+        // on button clicked
+        // get text from input
+        // push onto topics
+        // recreate buttons
